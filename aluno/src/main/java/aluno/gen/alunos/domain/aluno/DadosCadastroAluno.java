@@ -1,4 +1,4 @@
-package aluno.gen.alunos.aluno;
+package aluno.gen.alunos.domain.aluno;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

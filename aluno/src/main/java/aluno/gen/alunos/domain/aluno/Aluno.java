@@ -1,4 +1,4 @@
-package aluno.gen.alunos.aluno;
+package aluno.gen.alunos.domain.aluno;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -25,7 +25,10 @@ public class Aluno {
     private String professor;
     private String sala;
 
+    private Boolean ativo;
+
     public Aluno(DadosCadastroAluno dados) {
+        this.ativo = true;
         this.nome = dados.nome();
         this.idade = dados.idade();
         this.nota1 = dados.nota1();
@@ -54,5 +57,9 @@ public class Aluno {
             this.sala = dados.sala();
         }
 
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }

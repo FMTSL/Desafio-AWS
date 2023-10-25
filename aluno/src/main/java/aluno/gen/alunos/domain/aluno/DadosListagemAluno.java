@@ -1,4 +1,4 @@
-package aluno.gen.alunos.aluno;
+package aluno.gen.alunos.domain.aluno;
 
 public record DadosListagemAluno(
         Long id,

@@ -1,6 +1,6 @@
 package aluno.gen.alunos.controller;
 
-import aluno.gen.alunos.aluno.*;
+import aluno.gen.alunos.domain.aluno.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -35,7 +35,7 @@ public class AlunoController {
     //Método GET - Para Listar Dados do Banco de Dados
     @GetMapping
     public ResponseEntity <Page<DadosListagemAluno>> listar (Pageable paginacao){
-        var page = repository.findAll(paginacao).map(DadosListagemAluno::new);
+        var page = repository.findAllByAtivoTrue(paginacao).map(DadosListagemAluno::new);
 
         return ResponseEntity.ok(page);
     }
@@ -54,8 +54,18 @@ public class AlunoController {
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id){
-        repository.deleteById(id);
+        var aluno = repository.getReferenceById(id);
+        aluno.excluir();
 
         return ResponseEntity.noContent().build(); //Código 204 requisição processada e sem Conteúdo
     }
+
+    //Detalhamento
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar (@PathVariable Long id){
+        var aluno = repository.getReferenceById(id);
+        return ResponseEntity.ok(new DadosDetalhamentoAluno(aluno)); //Código 204 requisição processada e sem Conteúdo
+    }
+
+
 }
